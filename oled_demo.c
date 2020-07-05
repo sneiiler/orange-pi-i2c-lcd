@@ -36,6 +36,10 @@ int oled_demo(struct display_info *disp)
 
 	char ip[IP_SIZE];
 
+	char lidar_1_online_status[100];
+	char lidar_2_online_status[100];
+
+
 	const char *test_eth = "eth0";
 
 	get_local_ip(test_eth, ip);
@@ -62,7 +66,6 @@ int oled_demo(struct display_info *disp)
 		char *lidar_1_online_status = "Lidar 1 status: Offline";
 	}
 
-	
 
 	char *lidar_2_online_head = "Lidar 2 status: ";
 
