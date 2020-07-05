@@ -60,11 +60,14 @@ int oled_demo(struct display_info *disp)
 
 	sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, is_network_up("192.168.1.201", 22));
 
+	printf("%s\n",lidar_1_online_message);
+	printf("%s\n",lidar_2_online_message);
+
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
 	oled_putstrto(disp, 0, 0 + 0, ip_head);
 	oled_putstrto(disp, 0, 9 + 1, ip_message);
-	oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
-	oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
+	// oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
+	// oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
 	disp->font = font2;
 	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
 	// disp->font = font2;
