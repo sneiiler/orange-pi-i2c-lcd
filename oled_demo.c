@@ -46,9 +46,9 @@ int oled_demo(struct display_info *disp)
 	sprintf(ip_message, "%s%s", ip_head, ip);
 
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
-	oled_putstrto(disp, 0, 9 + 1, ip_head);
+	oled_putstrto(disp, 0, 0 + 0, ip_head);
 	disp->font = font2;
-	oled_putstrto(disp, 0, 18 + 18, ip);
+	oled_putstrto(disp, 0, 9 + 2, ip);
 	disp->font = font2;
 	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
 	// disp->font = font2;
@@ -60,17 +60,17 @@ int oled_demo(struct display_info *disp)
 
 	oled_send_buffer(disp);
 
-	uint8_t buf[100];
+	// uint8_t buf[100];
 
-	disp->font = font3;
-	for (int i = 0; i < 100; i++)
-	{
-		sprintf(buf, "Spnd spd  %d rpm", i);
-		oled_putstrto(disp, 0, 0, buf);
-		oled_putstrto(disp, 135 - i, 36 + 4, "===");
-		oled_putstrto(disp, 100, 0 + i / 2, ".");
-		oled_send_buffer(disp);
-	}
+	// disp->font = font3;
+	// for (int i = 0; i < 100; i++)
+	// {
+	// 	sprintf(buf, "Spnd spd  %d rpm", i);
+	// 	oled_putstrto(disp, 0, 0, buf);
+	// 	oled_putstrto(disp, 135 - i, 36 + 4, "===");
+	// 	oled_putstrto(disp, 100, 0 + i / 2, ".");
+	// 	oled_send_buffer(disp);
+	// }
 	//oled_putpixel(disp, 60, 45);
 	//oled_putstr(disp, 1, "hello");
 
