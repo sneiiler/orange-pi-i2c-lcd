@@ -48,11 +48,11 @@ int oled_demo(struct display_info *disp)
 
 	sprintf(ip_message, "%s%s", notice, ip);
 
-	// char *lidar_1_online_head = "Lidar 1 status: ";
+	char *lidar_1_online_head = "Lidar 1 status: ";
 
-	// char *lidar_1_online_message = (char *)malloc(strlen(notice) + 1);
+	char *lidar_1_online_message = (char *)malloc(strlen(notice) + strlen(1));
 
-	// sprintf(lidar_1_online_message, "%s%d", lidar_1_online_head, is_network_up("192.168.1.201", 22));
+	sprintf(lidar_1_online_message, "%s %d", lidar_1_online_head, is_network_up("192.168.1.201", 22));
 
 	// char *lidar_2_online_head = "Lidar 2 status: ";
 
@@ -60,7 +60,7 @@ int oled_demo(struct display_info *disp)
 
 	// sprintf(lidar_2_online_message, "%s%d", lidar_2_online_head, is_network_up("192.168.1.201", 22));
 
-	// printf("%s\n",lidar_1_online_message);
+	printf("%s\n",lidar_1_online_message);
 	// printf("%s\n",lidar_2_online_message);
 
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
