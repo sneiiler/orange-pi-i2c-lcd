@@ -41,7 +41,7 @@ int oled_demo(struct display_info *disp)
 
 	char *ip_head = "IP Address: ";
 
-	char *notice=""-->"";
+	char *notice="-->";
 
 	char *ip_message = (char *) malloc(strlen(notice) + strlen(ip));
 
