@@ -50,24 +50,42 @@ int oled_demo(struct display_info *disp)
 
 	char *lidar_1_online_head = "Lidar 1 status: ";
 
-	char *lidar_1_online_message = (char *)malloc(strlen(notice) + (10));
+	int lidar_1_status = is_network_up("192.168.1.201", 22);
 
-	sprintf(lidar_1_online_message, "%s %d", lidar_1_online_head, is_network_up("192.168.1.201", 22));
+	if (lidar_1_status)
+	{
+		char *lidar_1_online_status = "Lidar 1 status: Online";
+	}
+	else
+	{
 
-	// char *lidar_2_online_head = "Lidar 2 status: ";
+		char *lidar_1_online_status = "Lidar 1 status: Offline";
+	}
 
-	// char *lidar_2_online_message = (char *)malloc(strlen(notice) + 2);
+	
 
-	// sprintf(lidar_2_online_message, "%s%d", lidar_2_online_head, is_network_up("192.168.1.201", 22));
+	char *lidar_2_online_head = "Lidar 2 status: ";
 
-	printf("%s\n",lidar_1_online_message);
+	int lidar_2_status = is_network_up("192.168.1.202", 22);
+
+	if (lidar_2_status)
+	{
+		char *lidar_2_online_status = "Lidar 2 status: Online";
+	}
+	else
+	{
+
+		char *lidar_2_online_status = "Lidar 2 status: Offline";
+	}
+
+	// printf("%s\n", lidar_1_online_message);
 	// printf("%s\n",lidar_2_online_message);
 
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
 	oled_putstrto(disp, 0, 0 + 0, ip_head);
 	oled_putstrto(disp, 0, 9 + 1, ip_message);
-	// oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
-	// oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
+	oled_putstrto(disp, 0, 18 + 2, lidar_1_online_status);
+	oled_putstrto(disp, 0, 27 + 3, lidar_2_online_status);
 	disp->font = font2;
 	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
 	// disp->font = font2;
@@ -77,7 +95,7 @@ int oled_demo(struct display_info *disp)
 	// disp->font = font1;
 	// oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
 
-	oled_putstrto(disp, 0, 54 - 9 + 4, "Designed by Enjoyer.");
+	oled_putstrto(disp, 0, 54 - 9 + 4, "DESIGNED BY Enjoyer.");
 
 	oled_send_buffer(disp);
 
