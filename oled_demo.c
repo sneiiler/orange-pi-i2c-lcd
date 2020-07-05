@@ -71,7 +71,8 @@ int oled_demo(struct display_info *disp)
 	oled_putstrto(disp, 0, 54 - 6 + 4, "DESIGNED BY Enjoyer.");
 
 	oled_send_buffer(disp);
-	int count = 0 while (1)
+	int count = 0;
+	while (1)
 	{
 
 		char *lidar_1_online_head = "Lidar 1: ";
@@ -107,6 +108,12 @@ int oled_demo(struct display_info *disp)
 
 		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
 		oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
+
+		char *time_count_header = "Count: ";
+
+		char *time_count_message = (char *)malloc(strlen(time_count_header) + 100);
+		sprintf(time_count_message, "%s%d", time_count_header, count);
+		oled_putstrto(disp, 0, 36 + 3, time_count_message);
 		oled_send_buffer(disp);
 		usleep(500000);
 		count += 1;
