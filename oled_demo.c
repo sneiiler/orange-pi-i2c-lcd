@@ -29,8 +29,9 @@
 #include "font.h"
 
 int get_local_ip(const char *eth_inf, char *ip); // get local IP
+int is_network_up(char *chkhost, unsigned short chkport)
 
-int oled_demo(struct display_info *disp)
+	int oled_demo(struct display_info *disp)
 {
 
 	char ip[IP_SIZE];
@@ -47,10 +48,23 @@ int oled_demo(struct display_info *disp)
 
 	sprintf(ip_message, "%s%s", notice, ip);
 
+	char *lidar_1_online_head = "Lidar 1 status: ";
+
+	char *lidar_1_online_message = (char *)malloc(strlen(notice) + 1);
+
+	sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, is_network_up('192.168.1.201', 22));
+
+	char *lidar_2_online_head = "Lidar 2 status: ";
+
+	char *lidar_2_online_message = (char *)malloc(strlen(notice) + 2);
+
+	sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, is_network_up('192.168.1.202', 22));
+
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
 	oled_putstrto(disp, 0, 0 + 0, ip_head);
-	disp->font = font2;
 	oled_putstrto(disp, 0, 9 + 1, ip_message);
+	oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
+	oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
 	disp->font = font2;
 	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
 	// disp->font = font2;
@@ -60,9 +74,7 @@ int oled_demo(struct display_info *disp)
 	// disp->font = font1;
 	// oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
 
-	oled_putstrto(disp, 0, 54 + 4, "===1");
-	oled_putstrto(disp, 0, 54 + 9 + 4, "===2");
-	oled_putstrto(disp, 0, 54 + 9 + 9 + 4, "===3");
+	oled_putstrto(disp, 0, 54 + 4, "Designed by Enjoyer. All Right CopyRight.");
 
 	oled_send_buffer(disp);
 
@@ -125,6 +137,43 @@ int get_local_ip(const char *eth_inf, char *ip)
 
 	close(sd);
 	return 0;
+}
+
+int is_network_up(char *chkhost, unsigned short chkport)
+{
+	int sock = -1;
+	struct addrinfo *res, *rp;
+	int ret = 0;
+	char sport[10];
+	snprintf(sport, sizeof sport, "%d", chkport);
+
+	struct addrinfo hints = {.ai_socktype = SOCK_STREAM};
+
+	if (getaddrinfo(chkhost, sport, &hints, &res))
+	{
+		perror("gai");
+		return 0;
+	}
+
+	for (rp = res; rp && !ret; rp = rp->ai_next)
+	{
+		sock = socket(rp->ai_family, rp->ai_socktype,
+					  rp->ai_protocol);
+		if (sock == -1)
+			continue;
+		if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1)
+		{
+			char node[200], service[100];
+			getnameinfo(res->ai_addr, res->ai_addrlen, node, sizeof node, service, sizeof service, NI_NUMERICHOST);
+
+			// printf("Success on %s, %s\n", node, service);
+			ret = 1; /* Success */
+		}
+		close(sock);
+	}
+	freeaddrinfo(res);
+
+	return ret;
 }
 
 int main(int argc, char **argv)
