@@ -41,14 +41,16 @@ int oled_demo(struct display_info *disp)
 
 	char *ip_head = "IP Address: ";
 
-	char *ip_message = (char *) malloc(strlen(ip_head) + strlen(ip));
+	char *notice=""-->"";
 
-	sprintf(ip_message, "%s%s", ip_head, ip);
+	char *ip_message = (char *) malloc(strlen(notice) + strlen(ip));
+
+	sprintf(ip_message, "%s%s", notice, ip);
 
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
 	oled_putstrto(disp, 0, 0 + 0, ip_head);
 	disp->font = font2;
-	oled_putstrto(disp, 0, 9 + 2, ip);
+	oled_putstrto(disp, 0, 9 + 1, ip_message);
 	disp->font = font2;
 	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
 	// disp->font = font2;
