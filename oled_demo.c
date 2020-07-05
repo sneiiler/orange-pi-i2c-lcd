@@ -183,15 +183,15 @@ int main(int argc, char **argv)
 	char filename[32];
 	struct display_info disp;
 
-	if (argc < 2)
-	{
-		show_usage(argv[0]);
-		return -1;
-	}
+	// if (argc < 2)
+	// {
+	// 	show_usage(argv[0]);
+	// 	return -1;
+	// }
 
 	memset(&disp, 0, sizeof(disp));
 
-	sprintf(filename, "%s", argv[1]);
+	sprintf(filename, "%s", "/dev/i2s-0");
 	disp.address = OLED_I2C_ADDR;
 	disp.font = font2;
 
