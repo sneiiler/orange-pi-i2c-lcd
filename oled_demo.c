@@ -191,7 +191,7 @@ int main(int argc, char **argv)
 
 	memset(&disp, 0, sizeof(disp));
 
-	sprintf(filename, "%s", "/dev/i2s-0");
+	sprintf(filename, "%s", "/dev/i2c-0");
 	disp.address = OLED_I2C_ADDR;
 	disp.font = font2;
 
