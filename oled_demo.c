@@ -71,8 +71,7 @@ int oled_demo(struct display_info *disp)
 	oled_putstrto(disp, 0, 54 - 6 + 4, "DESIGNED BY Enjoyer.");
 
 	oled_send_buffer(disp);
-
-	while (1)
+	int count = 0 while (1)
 	{
 
 		char *lidar_1_online_head = "Lidar 1: ";
@@ -83,11 +82,11 @@ int oled_demo(struct display_info *disp)
 
 		if (lidar_1_status)
 		{
-			sprintf(lidar_1_online_message, "%s%d", lidar_1_online_head, "Online");
+			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online");
 		}
 		else
 		{
-			sprintf(lidar_1_online_message, "%s%d", lidar_1_online_head, "Offline");
+			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Offline");
 		}
 		// ----
 
@@ -110,6 +109,9 @@ int oled_demo(struct display_info *disp)
 		oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
 		oled_send_buffer(disp);
 		usleep(500000);
+		count += 1;
+
+		printf("%s %d\n", "times:", count);
 	}
 
 	// uint8_t buf[100];
