@@ -46,15 +46,17 @@ int oled_demo(struct display_info *disp)
 	sprintf(ip_message, "%s%s", ip_head, ip);
 
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
-	oled_putstrto(disp, 0, 9 + 1, ip_message);
-	disp->font = font1;
-	oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
+	oled_putstrto(disp, 0, 9 + 1, ip_head);
 	disp->font = font2;
-	oled_putstrto(disp, 0, 27 + 3, "DrvX tmp    64 C");
-	oled_putstrto(disp, 0, 36 + 4, "");
-	oled_putstrto(disp, 0, 45 + 5, "");
-	disp->font = font1;
-	oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
+	oled_putstrto(disp, 0, 18 + 18, ip);
+	disp->font = font2;
+	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
+	// disp->font = font2;
+	// oled_putstrto(disp, 0, 27 + 3, "DrvX tmp    64 C");
+	// oled_putstrto(disp, 0, 36 + 4, "");
+	// oled_putstrto(disp, 0, 45 + 5, "");
+	// disp->font = font1;
+	// oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
 
 	oled_send_buffer(disp);
 
