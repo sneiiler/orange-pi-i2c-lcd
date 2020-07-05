@@ -52,13 +52,13 @@ int is_network_up(char *chkhost, unsigned short chkport)
 
 	char *lidar_1_online_message = (char *)malloc(strlen(notice) + 1);
 
-	sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, is_network_up('192.168.1.201', 22));
+	sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, is_network_up("192.168.1.201", 22));
 
 	char *lidar_2_online_head = "Lidar 2 status: ";
 
 	char *lidar_2_online_message = (char *)malloc(strlen(notice) + 2);
 
-	sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, is_network_up('192.168.1.202', 22));
+	sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, is_network_up("192.168.1.201", 22));
 
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
 	oled_putstrto(disp, 0, 0 + 0, ip_head);
