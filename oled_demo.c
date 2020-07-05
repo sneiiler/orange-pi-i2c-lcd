@@ -50,7 +50,7 @@ int oled_demo(struct display_info *disp)
 
 	char *lidar_1_online_head = "Lidar 1 status: ";
 
-	char *lidar_1_online_message = (char *)malloc(strlen(notice) + strlen(1));
+	char *lidar_1_online_message = (char *)malloc(strlen(notice) + (10));
 
 	sprintf(lidar_1_online_message, "%s %d", lidar_1_online_head, is_network_up("192.168.1.201", 22));
 
