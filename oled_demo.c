@@ -77,7 +77,7 @@ int oled_demo(struct display_info *disp)
 	// disp->font = font1;
 	// oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
 
-	oled_putstrto(disp, 0, 54 + 4, "Designed by Enjoyer. All Right CopyRight.");
+	oled_putstrto(disp, 0, 54 - 9 + 4, "Designed by Enjoyer.");
 
 	oled_send_buffer(disp);
 
