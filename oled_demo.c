@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdint.h>
-
+#include <unistd.h>
 #include <netdb.h>
 #include <net/if.h>
 #include <arpa/inet.h>
@@ -53,44 +53,12 @@ int oled_demo(struct display_info *disp)
 
 	// -=-----
 
-	char *lidar_1_online_head = "Lidar 1 status: ";
-
-	int lidar_1_status = is_network_up("192.168.1.201", 22);
-
-	char *lidar_1_online_message = (char *)malloc(strlen(lidar_1_online_head) + 10);
-
-	if (lidar_1_status)
-	{
-		sprintf(lidar_1_online_message, "%s%d", lidar_1_online_head, "Online");
-	}
-	else
-	{
-		sprintf(lidar_1_online_message, "%s%d", lidar_1_online_head, "Offline");
-	}
-	// ----
-
-	char *lidar_2_online_head = "Lidar 2 status: ";
-
-	int lidar_2_status = is_network_up("192.168.1.202", 22);
-
-	char *lidar_2_online_message = (char *)malloc(strlen(lidar_2_online_head) + 20);
-
-	if (lidar_2_status)
-	{
-		sprintf(lidar_2_online_message, "%s%d", lidar_2_online_head, "Online");
-	}
-	else
-	{
-		sprintf(lidar_2_online_message, "%s%d", lidar_2_online_head, "Offline");
-	}
 	// printf("%s\n", lidar_1_online_message);
 	// printf("%s\n",lidar_2_online_message);
 
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
 	oled_putstrto(disp, 0, 0 + 0, ip_head);
 	oled_putstrto(disp, 0, 9 + 1, ip_message);
-	oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
-	oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
 	disp->font = font2;
 	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
 	// disp->font = font2;
@@ -103,6 +71,46 @@ int oled_demo(struct display_info *disp)
 	oled_putstrto(disp, 0, 54 - 6 + 4, "DESIGNED BY Enjoyer.");
 
 	oled_send_buffer(disp);
+
+	while (1)
+	{
+
+		char *lidar_1_online_head = "Lidar 1: ";
+
+		int lidar_1_status = is_network_up("192.168.1.201", 22);
+
+		char *lidar_1_online_message = (char *)malloc(strlen(lidar_1_online_head) + 10);
+
+		if (lidar_1_status)
+		{
+			sprintf(lidar_1_online_message, "%s%d", lidar_1_online_head, "Online");
+		}
+		else
+		{
+			sprintf(lidar_1_online_message, "%s%d", lidar_1_online_head, "Offline");
+		}
+		// ----
+
+		char *lidar_2_online_head = "Lidar 2: ";
+
+		int lidar_2_status = is_network_up("192.168.1.202", 22);
+
+		char *lidar_2_online_message = (char *)malloc(strlen(lidar_2_online_head) + 20);
+
+		if (lidar_2_status)
+		{
+			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online");
+		}
+		else
+		{
+			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline");
+		}
+
+		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
+		oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
+		oled_send_buffer(disp);
+		usleep(500000);
+	}
 
 	// uint8_t buf[100];
 
