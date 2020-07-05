@@ -41,9 +41,9 @@ int oled_demo(struct display_info *disp)
 
 	char *ip_head = "IP Address: ";
 
-	char *notice="-->";
+	char *notice = "-->";
 
-	char *ip_message = (char *) malloc(strlen(notice) + strlen(ip));
+	char *ip_message = (char *)malloc(strlen(notice) + strlen(ip));
 
 	sprintf(ip_message, "%s%s", notice, ip);
 
@@ -59,6 +59,10 @@ int oled_demo(struct display_info *disp)
 	// oled_putstrto(disp, 0, 45 + 5, "");
 	// disp->font = font1;
 	// oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
+
+	oled_putstrto(disp, 0, 54 + 4, "===1");
+	oled_putstrto(disp, 0, 54 + 9 + 4, "===2");
+	oled_putstrto(disp, 0, 54 + 9 + 9 + 4, "===3");
 
 	oled_send_buffer(disp);
 
