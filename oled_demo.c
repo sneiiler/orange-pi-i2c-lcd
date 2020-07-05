@@ -29,9 +29,9 @@
 #include "font.h"
 
 int get_local_ip(const char *eth_inf, char *ip); // get local IP
-int is_network_up(char *chkhost, unsigned short chkport)
+int is_network_up(char *chkhost, unsigned short chkport);
 
-	int oled_demo(struct display_info *disp)
+int oled_demo(struct display_info *disp)
 {
 
 	char ip[IP_SIZE];
