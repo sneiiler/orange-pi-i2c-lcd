@@ -35,9 +35,11 @@ int oled_demo(struct display_info *disp)
 
 	char ip[IP_SIZE];
 
+	const char *test_eth = "eth0";
+
 	get_local_ip(test_eth, ip);
 
-	char *ip_head = "IP Address: "
+	char *ip_head = "IP Address: ";
 
 	char *ip_message = (char *) malloc(strlen(ip_head) + strlen(ip));
 
