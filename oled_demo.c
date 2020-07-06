@@ -219,6 +219,41 @@ int is_network_up(char *chkhost, unsigned short chkport)
 	return ret;
 }
 
+int init_lcd()
+{
+	// ----------
+	char filename[32];
+	struct display_info disp;
+
+	// if (argc < 2)
+	// {
+	// 	show_usage(argv[0]);
+	// 	return -1;
+	// }
+
+	memset(&disp, 0, sizeof(disp));
+
+	sprintf(filename, "%s", "/dev/i2c-0");
+	disp.address = OLED_I2C_ADDR;
+	disp.font = font2;
+
+	//	if (oled_open(&disp, filename) < 0 ||
+	//	    oled_init(&disp)           < 0 ||
+	//	    oled_demo(&disp)           < 0)
+	//	{
+
+	int e;
+
+	e = oled_open(&disp, filename);
+
+	e = oled_init(&disp);
+
+	printf("-----------------\n");
+
+	oled_putstrto(&disp, 0, 0 + 0, '123456');
+	oled_send_buffer(&disp);
+}
+
 int main(int argc, char **argv)
 {
 
