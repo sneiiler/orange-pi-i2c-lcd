@@ -219,17 +219,10 @@ int is_network_up(char *chkhost, unsigned short chkport)
 	return ret;
 }
 
-int init_lcd()
+int write_lcd(int x, int y, char *message)
 {
-	// ----------
 	char filename[32];
 	struct display_info disp;
-
-	// if (argc < 2)
-	// {
-	// 	show_usage(argv[0]);
-	// 	return -1;
-	// }
 
 	memset(&disp, 0, sizeof(disp));
 
@@ -237,20 +230,15 @@ int init_lcd()
 	disp.address = OLED_I2C_ADDR;
 	disp.font = font2;
 
-	//	if (oled_open(&disp, filename) < 0 ||
-	//	    oled_init(&disp)           < 0 ||
-	//	    oled_demo(&disp)           < 0)
-	//	{
+	oled_open(&disp, filename);
 
-	int e;
+	oled_init(&disp);
 
-	e = oled_open(&disp, filename);
+	oled_putstrto(&disp, 0, 0 + 0, message);
 
-	e = oled_init(&disp);
+	oled_putstrto(&disp, 0, 54 - 6 + 4, "DESIGNED BY Enjoyer.");
+	oled_putstrto(&disp, x, y, message);
 
-	printf("-----------------\n");
-
-	oled_putstrto(&disp, 0, 0 + 0, '123456');
 	oled_send_buffer(&disp);
 }
 
