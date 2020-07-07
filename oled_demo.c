@@ -94,7 +94,14 @@ int oled_demo(struct display_info *disp)
 	while (1)
 	{
 
-		if (count % 8 == 0)
+		lidar_1_online_message[0] = '\0';
+		lidar_2_online_message[0] = '\0';
+		time_count_message[0] = '\0';
+		memset(lidar_1_online_message, '\0', sizeof(lidar_1_online_message));
+		memset(lidar_2_online_message, '\0', sizeof(lidar_2_online_message));
+		memset(time_count_message, '\0', sizeof(time_count_message));
+
+		if (count % 7 == 0)
 		{
 			disp_change = true;
 		}
@@ -200,12 +207,6 @@ int oled_demo(struct display_info *disp)
 		oled_send_buffer(disp);
 		usleep(400000);
 		count += 1;
-		lidar_1_online_message[0] = '\0';
-		lidar_2_online_message[0] = '\0';
-		time_count_message[0] = '\0';
-		memset(lidar_1_online_message, '\0', sizeof(lidar_1_online_message));
-		memset(lidar_2_online_message, '\0', sizeof(lidar_2_online_message));
-		memset(time_count_message, '\0', sizeof(time_count_message));
 		printf("%s %ld\n", "times:", count);
 	}
 
