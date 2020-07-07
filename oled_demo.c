@@ -79,17 +79,17 @@ int oled_demo(struct display_info *disp)
 
 	int lidar_1_status = is_network_up("192.168.1.201", 22);
 
-	char *lidar_1_online_message = (char *)malloc(strlen(lidar_1_online_head) + 100);
+	char *lidar_1_online_message = (char *)malloc(200);
 
 	char *lidar_2_online_head = "Lidar2:";
 
 	int lidar_2_status = is_network_up("192.168.1.202", 22);
 
-	char *lidar_2_online_message = (char *)malloc(strlen(lidar_2_online_head) + 100);
+	char *lidar_2_online_message = (char *)malloc(200);
 
 	char *time_count_header = "Detect times: ";
 
-	char *time_count_message = (char *)malloc(strlen(time_count_header) + 100);
+	char *time_count_message = (char *)malloc(200);
 
 	while (1)
 	{
@@ -178,6 +178,9 @@ int oled_demo(struct display_info *disp)
 		oled_send_buffer(disp);
 		usleep(400000);
 		count += 1;
+		lidar_1_online_message[0] = '\0';
+		lidar_2_online_message[0] = '\0';
+		time_count_message[0] = '\0';
 		memset(lidar_1_online_message, '\0', sizeof(lidar_1_online_message));
 		memset(lidar_2_online_message, '\0', sizeof(lidar_2_online_message));
 		memset(time_count_message, '\0', sizeof(time_count_message));
