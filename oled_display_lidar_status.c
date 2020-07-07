@@ -35,11 +35,8 @@ int is_network_up(char *chkhost, unsigned short chkport);
 int oled_demo(struct display_info *disp)
 {
 
+	char *ip = (char *)malloc(sizeof(char) * IP_SIZE);
 
-	char *ip = (char *)malloc(IP_SIZE);
-
-	ip[0] = '\0';
-	
 	memset(ip, '\0', sizeof(ip));
 
 	char lidar_1_online_status[100];
