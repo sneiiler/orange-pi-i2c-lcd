@@ -79,7 +79,7 @@ int oled_demo(struct display_info *disp)
 
 		int lidar_1_status = is_network_up("192.168.1.201", 22);
 
-		char *lidar_1_online_message = (char *)malloc(strlen(lidar_1_online_head) + 10);
+		char *lidar_1_online_message = (char *)malloc(strlen(lidar_1_online_head) + 100);
 
 		if (lidar_1_status)
 		{
@@ -89,12 +89,12 @@ int oled_demo(struct display_info *disp)
 			}
 			else
 			{
-				sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online  ");
+				sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online            ");
 			}
 		}
 		else
 		{
-			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Offline");
+			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Offline           ");
 		}
 		// ----
 
@@ -102,7 +102,7 @@ int oled_demo(struct display_info *disp)
 
 		int lidar_2_status = is_network_up("192.168.1.202", 22);
 
-		char *lidar_2_online_message = (char *)malloc(strlen(lidar_2_online_head) + 20);
+		char *lidar_2_online_message = (char *)malloc(strlen(lidar_2_online_head) + 100);
 
 		if (lidar_2_status)
 		{
@@ -112,12 +112,12 @@ int oled_demo(struct display_info *disp)
 			}
 			else
 			{
-				sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online  ");
+				sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online            ");
 			}
 		}
 		else
 		{
-			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline");
+			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline           ");
 		}
 
 		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
@@ -161,10 +161,10 @@ int oled_demo(struct display_info *disp)
 
 		oled_putstrto(disp, 0, 36 + 6, time_count_message);
 		oled_send_buffer(disp);
-		usleep(200000);
+		usleep(400000);
 		count += 1;
 
-		printf("%s %d\n", "times:", count);
+		printf("%s %ld\n", "times:", count);
 	}
 
 	// uint8_t buf[100];
