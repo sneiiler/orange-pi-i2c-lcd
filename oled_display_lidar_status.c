@@ -48,7 +48,7 @@ int oled_demo(struct display_info *disp)
 
 	get_local_ip(test_eth, ip);
 
-	char *ip_head = "IPAddr: ";
+	char *ip_head = "IP Addr:";
 
 	char *ip_message = (char *)malloc(strlen(ip_head) + strlen(ip));
 
@@ -76,15 +76,15 @@ int oled_demo(struct display_info *disp)
 	long int count = 0;
 	bool disp_change = false;
 
-	char *lidar_1_online_head = "Lidar1:";
+	char *lidar_1_online_head = "Lidar 1:";
 
 	char *lidar_1_online_message = (char *)malloc(200);
 
-	char *lidar_2_online_head = "Lidar2:";
+	char *lidar_2_online_head = "Lidar 2:";
 
 	char *lidar_2_online_message = (char *)malloc(200);
 
-	char *time_count_header = "Detecting: ";
+	char *time_count_header = "Detecting:";
 
 	char *time_count_message = (char *)malloc(200);
 
@@ -199,7 +199,7 @@ int oled_demo(struct display_info *disp)
 		oled_putstrto(disp, 0, 18 + 2, lidar_2_online_message);
 		oled_putstrto(disp, 0, 27 + 3, time_count_message);
 
-		sprintf(time_duration_message, "Duration:%d:%d:%d%s", duration_h, duration_m, duration_s, "          ");
+		sprintf(time_duration_message, "Duration:%dh%dmin%dsec%s", duration_h, duration_m, duration_s, "          ");
 
 		oled_putstrto(disp, 0, 36 + 5, time_duration_message);
 		oled_send_buffer(disp);
