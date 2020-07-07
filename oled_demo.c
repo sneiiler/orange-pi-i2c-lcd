@@ -22,6 +22,7 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <stdbool.h>
 
 #define IP_SIZE 16
 
