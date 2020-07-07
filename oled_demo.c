@@ -72,6 +72,7 @@ int oled_demo(struct display_info *disp)
 
 	oled_send_buffer(disp);
 	long int count = 0;
+	bool disp_change = false;
 	while (1)
 	{
 
@@ -81,15 +82,24 @@ int oled_demo(struct display_info *disp)
 
 		char *lidar_1_online_message = (char *)malloc(strlen(lidar_1_online_head) + 100);
 
+		if (count % 3 == 0)
+		{
+			disp_change = true;
+		}
+
 		if (lidar_1_status)
 		{
-			if (count % 2 == 0)
+			if (disp_change)
 			{
-				sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "192.168.1.201");
-			}
-			else
-			{
-				sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online            ");
+				if (count % 2 == 0 && disp_change)
+				{
+					sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "192.168.1.201");
+				}
+				else
+				{
+					sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online            ");
+				}
+				disp_change = false;
 			}
 		}
 		else
@@ -106,13 +116,17 @@ int oled_demo(struct display_info *disp)
 
 		if (lidar_2_status)
 		{
-			if (count % 2 == 0)
+			if (disp_change)
 			{
-				sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "192.168.1.202");
-			}
-			else
-			{
-				sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online            ");
+				if (count % 2 == 0 && disp_change)
+				{
+					sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "192.168.1.202");
+				}
+				else
+				{
+					sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online            ");
+				}
+				disp_change = false;
 			}
 		}
 		else
@@ -153,11 +167,11 @@ int oled_demo(struct display_info *disp)
 		case 7:
 			sprintf(time_count_message, "%s%ld", time_count_header, count);
 			break;
-		
+
 		default:
 			sprintf(time_count_message, "%s%s", time_count_header, "**       ");
 			break;
-		} 
+		}
 
 		oled_putstrto(disp, 0, 36 + 6, time_count_message);
 		oled_send_buffer(disp);
