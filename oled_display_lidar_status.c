@@ -199,7 +199,7 @@ int oled_demo(struct display_info *disp)
 		oled_putstrto(disp, 0, 18 + 2, lidar_2_online_message);
 		oled_putstrto(disp, 0, 27 + 3, time_count_message);
 
-		sprintf(time_duration_message, "Duration:%d:%d:%d%s", duration_hours, duration_m, duration_s, "          ");
+		sprintf(time_duration_message, "Duration:%d:%d:%d%s", duration_h, duration_m, duration_s, "          ");
 
 		oled_putstrto(disp, 0, 36 + 5, time_duration_message);
 		oled_send_buffer(disp);
