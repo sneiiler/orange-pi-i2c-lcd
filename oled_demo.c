@@ -194,7 +194,7 @@ int oled_demo(struct display_info *disp)
 
 		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
 		oled_putstrto(disp, 0, 27 + 3, lidar_1_online_message);
-		print(lidar_1_online_message)
+		printf("%s\n", lidar_1_online_message);
 		oled_putstrto(disp, 0, 36 + 6, time_count_message);
 		oled_send_buffer(disp);
 		usleep(400000);
