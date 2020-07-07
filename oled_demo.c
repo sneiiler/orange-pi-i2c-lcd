@@ -117,7 +117,6 @@ int oled_demo(struct display_info *disp)
 				{
 					sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online            ");
 				}
-				disp_change = false;
 			}
 		}
 		else
@@ -125,7 +124,6 @@ int oled_demo(struct display_info *disp)
 			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Offline           ");
 		}
 		// ----
-		printf("%s----1----\n", lidar_2_online_message);
 
 		if (lidar_2_status)
 		{
@@ -139,17 +137,12 @@ int oled_demo(struct display_info *disp)
 				{
 					sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online            ");
 				}
-				disp_change = false;
 			}
 		}
 		else
 		{
 			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline           ");
 		}
-
-
-		printf("%s----2----\n", lidar_2_online_message);
-
 
 		switch (count % 8)
 		{
@@ -184,11 +177,13 @@ int oled_demo(struct display_info *disp)
 		}
 
 		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
-		oled_putstrto(disp, 0, 27 + 3, lidar_1_online_message);
+		oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
 		oled_putstrto(disp, 0, 36 + 6, time_count_message);
 		oled_send_buffer(disp);
 		usleep(400000);
 		count += 1;
+		disp_change = false;
+
 		printf("%s %ld\n", "times:", count);
 	}
 
