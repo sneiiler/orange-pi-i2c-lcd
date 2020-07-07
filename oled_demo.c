@@ -77,22 +77,21 @@ int oled_demo(struct display_info *disp)
 
 	char *lidar_1_online_head = "Lidar1:";
 
-	int lidar_1_status = is_network_up("192.168.1.201", 22);
-
 	char *lidar_1_online_message = (char *)malloc(200);
 
 	char *lidar_2_online_head = "Lidar2:";
 
-	int lidar_2_status = is_network_up("192.168.1.202", 22);
-
 	char *lidar_2_online_message = (char *)malloc(200);
 
-	char *time_count_header = "Detect times: ";
+	char *time_count_header = "Detecting: ";
 
 	char *time_count_message = (char *)malloc(200);
 
 	while (1)
 	{
+
+		int lidar_1_status = is_network_up("192.168.1.201", 22);
+		int lidar_2_status = is_network_up("192.168.1.202", 22);
 
 		lidar_1_online_message[0] = '\0';
 		lidar_2_online_message[0] = '\0';
@@ -126,26 +125,6 @@ int oled_demo(struct display_info *disp)
 			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Offline           ");
 		}
 		// ----
-
-		// if (lidar_2_status)
-		// {
-		// 	if (disp_change)
-		// 	{
-		// 		if (count % 2 == 0 && disp_change)
-		// 		{
-		// 			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "192.168.1.202");
-		// 		}
-		// 		else
-		// 		{
-		// 			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online            ");
-		// 		}
-		// 		disp_change = false;
-		// 	}
-		// }
-		// else
-		// {
-		// 	sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline           ");
-		// }
 		printf("%s----1----\n", lidar_2_online_message);
 
 		if (lidar_2_status)
@@ -167,6 +146,10 @@ int oled_demo(struct display_info *disp)
 		{
 			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline           ");
 		}
+
+
+		printf("%s----2----\n", lidar_2_online_message);
+
 
 		switch (count % 8)
 		{
@@ -202,7 +185,6 @@ int oled_demo(struct display_info *disp)
 
 		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
 		oled_putstrto(disp, 0, 27 + 3, lidar_1_online_message);
-		printf("%s----2----\n", lidar_2_online_message);
 		oled_putstrto(disp, 0, 36 + 6, time_count_message);
 		oled_send_buffer(disp);
 		usleep(400000);
