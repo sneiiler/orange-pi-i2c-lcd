@@ -120,6 +120,26 @@ int oled_demo(struct display_info *disp)
 		}
 		// ----
 
+		// if (lidar_2_status)
+		// {
+		// 	if (disp_change)
+		// 	{
+		// 		if (count % 2 == 0 && disp_change)
+		// 		{
+		// 			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "192.168.1.202");
+		// 		}
+		// 		else
+		// 		{
+		// 			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online            ");
+		// 		}
+		// 		disp_change = false;
+		// 	}
+		// }
+		// else
+		// {
+		// 	sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline           ");
+		// }
+
 		if (lidar_2_status)
 		{
 			if (disp_change)
