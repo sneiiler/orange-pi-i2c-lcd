@@ -74,14 +74,25 @@ int oled_demo(struct display_info *disp)
 	oled_send_buffer(disp);
 	long int count = 0;
 	bool disp_change = false;
+
+	char *lidar_1_online_head = "Lidar1:";
+
+	int lidar_1_status = is_network_up("192.168.1.201", 22);
+
+	char *lidar_1_online_message = (char *)malloc(strlen(lidar_1_online_head) + 100);
+
+	char *lidar_2_online_head = "Lidar2:";
+
+	int lidar_2_status = is_network_up("192.168.1.202", 22);
+
+	char *lidar_2_online_message = (char *)malloc(strlen(lidar_2_online_head) + 100);
+
+	char *time_count_header = "Detect times: ";
+
+	char *time_count_message = (char *)malloc(strlen(time_count_header) + 100);
+
 	while (1)
 	{
-
-		char *lidar_1_online_head = "Lidar1:";
-
-		int lidar_1_status = is_network_up("192.168.1.201", 22);
-
-		char *lidar_1_online_message = (char *)malloc(strlen(lidar_1_online_head) + 100);
 
 		if (count % 3 == 0)
 		{
@@ -109,12 +120,6 @@ int oled_demo(struct display_info *disp)
 		}
 		// ----
 
-		char *lidar_2_online_head = "Lidar2:";
-
-		int lidar_2_status = is_network_up("192.168.1.202", 22);
-
-		char *lidar_2_online_message = (char *)malloc(strlen(lidar_2_online_head) + 100);
-
 		if (lidar_2_status)
 		{
 			if (disp_change)
@@ -134,13 +139,6 @@ int oled_demo(struct display_info *disp)
 		{
 			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline           ");
 		}
-
-		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
-		oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
-
-		char *time_count_header = "Detect times: ";
-
-		char *time_count_message = (char *)malloc(strlen(time_count_header) + 100);
 
 		switch (count % 8)
 		{
@@ -174,11 +172,15 @@ int oled_demo(struct display_info *disp)
 			break;
 		}
 
+		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
+		oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
 		oled_putstrto(disp, 0, 36 + 6, time_count_message);
 		oled_send_buffer(disp);
 		usleep(400000);
 		count += 1;
-
+		memset(lidar_1_online_message, '\0', sizeof(lidar_1_online_message));
+		memset(lidar_2_online_message, '\0', sizeof(lidar_2_online_message));
+		memset(time_count_message, '\0', sizeof(time_count_message));
 		printf("%s %ld\n", "times:", count);
 	}
 
