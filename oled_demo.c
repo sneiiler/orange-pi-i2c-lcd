@@ -151,7 +151,7 @@ int oled_demo(struct display_info *disp)
 			sprintf(time_count_message, "%s%s", time_count_header, "....... ");
 			break;
 		case 7:
-			sprintf(time_count_message, "%s%d", time_count_header, count);
+			sprintf(time_count_message, "%s%ld", time_count_header, count);
 			break;
 		
 		default:
@@ -256,12 +256,12 @@ int is_network_up(char *chkhost, unsigned short chkport)
 		timeout.tv_usec = 0;
 		if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout)) < 0)
 		{
-			error("setsockopt failed\n");
+			printf("setsockopt failed\n");
 		}
 
 		if (setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout)) < 0)
 		{
-			error("setsockopt failed\n");
+			printf("setsockopt failed\n");
 		}
 		if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1)
 		{
