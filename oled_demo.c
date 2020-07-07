@@ -68,7 +68,7 @@ int oled_demo(struct display_info *disp)
 	// disp->font = font1;
 	// oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
 
-	oled_putstrto(disp, 0, 54 - 6 + 4, "DESIGNED BY Enjoyer.");
+	oled_putstrto(disp, 0, 54 - 4 + 4, "DESIGNED BY Enjoyer.");
 
 	oled_send_buffer(disp);
 	int count = 0;
@@ -83,7 +83,7 @@ int oled_demo(struct display_info *disp)
 
 		if (lidar_1_status)
 		{
-			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online");
+			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online  ");
 		}
 		else
 		{
@@ -99,7 +99,7 @@ int oled_demo(struct display_info *disp)
 
 		if (lidar_2_status)
 		{
-			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online");
+			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online  ");
 		}
 		else
 		{
@@ -109,7 +109,7 @@ int oled_demo(struct display_info *disp)
 		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
 		oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
 
-		char *time_count_header = "Count: ";
+		char *time_count_header = "Detect times: ";
 
 		char *time_count_message = (char *)malloc(strlen(time_count_header) + 100);
 		sprintf(time_count_message, "%s%d", time_count_header, count);
