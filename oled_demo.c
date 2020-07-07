@@ -71,11 +71,11 @@ int oled_demo(struct display_info *disp)
 	oled_putstrto(disp, 0, 54 - 4 + 4, "DESIGNED BY Enjoyer.");
 
 	oled_send_buffer(disp);
-	int count = 0;
+	long int count = 0;
 	while (1)
 	{
 
-		char *lidar_1_online_head = "Lidar 1: ";
+		char *lidar_1_online_head = "Lidar1:";
 
 		int lidar_1_status = is_network_up("192.168.1.201", 22);
 
@@ -83,7 +83,14 @@ int oled_demo(struct display_info *disp)
 
 		if (lidar_1_status)
 		{
-			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online  ");
+			if (count % 2 == 0)
+			{
+				sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "192.168.1.201");
+			}
+			else
+			{
+				sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online  ");
+			}
 		}
 		else
 		{
@@ -91,7 +98,7 @@ int oled_demo(struct display_info *disp)
 		}
 		// ----
 
-		char *lidar_2_online_head = "Lidar 2: ";
+		char *lidar_2_online_head = "Lidar2:";
 
 		int lidar_2_status = is_network_up("192.168.1.202", 22);
 
@@ -99,7 +106,14 @@ int oled_demo(struct display_info *disp)
 
 		if (lidar_2_status)
 		{
-			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online  ");
+			if (count % 2 == 0)
+			{
+				sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "192.168.1.202");
+			}
+			else
+			{
+				sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online  ");
+			}
 		}
 		else
 		{
@@ -112,10 +126,42 @@ int oled_demo(struct display_info *disp)
 		char *time_count_header = "Detect times: ";
 
 		char *time_count_message = (char *)malloc(strlen(time_count_header) + 100);
-		sprintf(time_count_message, "%s%d", time_count_header, count);
-		oled_putstrto(disp, 0, 36 + 3, time_count_message);
+
+		switch (count % 8)
+		{
+		case 0:
+			sprintf(time_count_message, "%s%s", time_count_header, ".       ");
+			break;
+		case 1:
+			sprintf(time_count_message, "%s%s", time_count_header, "..      ");
+			break;
+		case 2:
+			sprintf(time_count_message, "%s%s", time_count_header, "...     ");
+			break;
+		case 3:
+			sprintf(time_count_message, "%s%s", time_count_header, "....    ");
+			break;
+		case 4:
+			sprintf(time_count_message, "%s%s", time_count_header, ".....   ");
+			break;
+		case 5:
+			sprintf(time_count_message, "%s%s", time_count_header, "......  ");
+			break;
+		case 6:
+			sprintf(time_count_message, "%s%s", time_count_header, "....... ");
+			break;
+		case 7:
+			sprintf(time_count_message, "%s%d", time_count_header, count);
+			break;
+		
+		default:
+			sprintf(time_count_message, "%s%s", time_count_header, "**       ");
+			break;
+		} 
+
+		oled_putstrto(disp, 0, 36 + 6, time_count_message);
 		oled_send_buffer(disp);
-		usleep(500000);
+		usleep(200000);
 		count += 1;
 
 		printf("%s %d\n", "times:", count);
