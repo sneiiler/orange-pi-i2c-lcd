@@ -34,6 +34,10 @@ int is_network_up(char *chkhost, unsigned short chkport);
 
 int oled_demo(struct display_info *disp)
 {
+	int duration_h, duration_m, duration_s;
+	time_t init_time;
+	time_t current_time;
+	init_time = time(NULL);
 
 	char ip[IP_SIZE] = "";
 
@@ -44,13 +48,11 @@ int oled_demo(struct display_info *disp)
 
 	get_local_ip(test_eth, ip);
 
-	char *ip_head = "IP Address: ";
+	char *ip_head = "IPAddr: ";
 
-	char *notice = "-->";
+	char *ip_message = (char *)malloc(strlen(ip_head) + strlen(ip));
 
-	char *ip_message = (char *)malloc(strlen(notice) + strlen(ip));
-
-	sprintf(ip_message, "%s%s", notice, ip);
+	sprintf(ip_message, "%s%s", ip_head, ip);
 
 	// -=-----
 
@@ -58,8 +60,7 @@ int oled_demo(struct display_info *disp)
 	// printf("%s\n",lidar_2_online_message);
 
 	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
-	oled_putstrto(disp, 0, 0 + 0, ip_head);
-	oled_putstrto(disp, 0, 9 + 1, ip_message);
+	oled_putstrto(disp, 0, 0, ip_message);
 	disp->font = font2;
 	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
 	// disp->font = font2;
@@ -87,22 +88,36 @@ int oled_demo(struct display_info *disp)
 
 	char *time_count_message = (char *)malloc(200);
 
+	char *time_duration_message = (char *)malloc(200);
+
 	while (1)
 	{
+		// get time
+		current_time = time(NULL);
 
+		duration_h = ((current_time - init_time) / 3600);
+
+		duration_m = ((current_time - init_time) - (3600 * duration_h)) / 60;
+
+		duration_s = ((current_time - init_time) - (3600 * duration_h) - (duration_m * 60));
+
+		// get ip
 		get_local_ip(test_eth, ip);
-		sprintf(ip_message, "%s%s", notice, ip);
-		oled_putstrto(disp, 0, 9 + 1, ip_message);
-		
+		sprintf(ip_message, "%s%s", ip_head, ip);
+		oled_putstrto(disp, 0, 0, ip_message);
+
 		int lidar_1_status = is_network_up("192.168.1.201", 22);
 		int lidar_2_status = is_network_up("192.168.1.202", 22);
 
 		lidar_1_online_message[0] = '\0';
 		lidar_2_online_message[0] = '\0';
 		time_count_message[0] = '\0';
+		time_duration_message[0] = '\0';
+
 		memset(lidar_1_online_message, '\0', sizeof(lidar_1_online_message));
 		memset(lidar_2_online_message, '\0', sizeof(lidar_2_online_message));
 		memset(time_count_message, '\0', sizeof(time_count_message));
+		memset(time_duration_message, '\0', sizeof(time_duration_message));
 
 		if (count % 7 == 0)
 		{
@@ -180,9 +195,13 @@ int oled_demo(struct display_info *disp)
 			break;
 		}
 
-		oled_putstrto(disp, 0, 18 + 2, lidar_1_online_message);
-		oled_putstrto(disp, 0, 27 + 3, lidar_2_online_message);
-		oled_putstrto(disp, 0, 36 + 6, time_count_message);
+		oled_putstrto(disp, 0, 9 + 1, lidar_1_online_message);
+		oled_putstrto(disp, 0, 18 + 2, lidar_2_online_message);
+		oled_putstrto(disp, 0, 27 + 3, time_count_message);
+
+		sprintf(time_duration_message, "Duration:%d:%d:%d%s", duration_hours, duration_m, duration_s, "          ");
+
+		oled_putstrto(disp, 0, 36 + 5, time_duration_message);
 		oled_send_buffer(disp);
 		usleep(400000);
 		count += 1;
