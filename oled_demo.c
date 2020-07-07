@@ -204,6 +204,19 @@ int is_network_up(char *chkhost, unsigned short chkport)
 					  rp->ai_protocol);
 		if (sock == -1)
 			continue;
+		// set the timeout option
+		struct timeval timeout;
+		timeout.tv_sec = 1;
+		timeout.tv_usec = 0;
+		if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout)) < 0)
+		{
+			error("setsockopt failed\n");
+		}
+
+		if (setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout)) < 0)
+		{
+			error("setsockopt failed\n");
+		}
 		if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1)
 		{
 			char node[200], service[100];
