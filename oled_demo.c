@@ -184,7 +184,7 @@ int oled_demo(struct display_info *disp)
 		count += 1;
 		disp_change = false;
 
-		printf("%s %ld\n", "times:", count);
+		// printf("%s %ld\n", "times:", count);
 	}
 
 	// uint8_t buf[100];
