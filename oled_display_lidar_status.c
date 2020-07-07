@@ -71,8 +71,8 @@ int oled_demo(struct display_info *disp)
 	// oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
 
 	oled_putstrto(disp, 0, 54 - 4 + 4, "DESIGNED BY Enjoyer.");
-
 	oled_send_buffer(disp);
+
 	long int count = 0;
 	bool disp_change = false;
 
@@ -84,7 +84,7 @@ int oled_demo(struct display_info *disp)
 
 	char *lidar_2_online_message = (char *)malloc(200);
 
-	char *time_count_header = "Detecting:";
+	char *time_count_header = "Running:";
 
 	char *time_count_message = (char *)malloc(200);
 
@@ -92,22 +92,7 @@ int oled_demo(struct display_info *disp)
 
 	while (1)
 	{
-		// get time
-		current_time = time(NULL);
-
-		duration_h = ((current_time - init_time) / 3600);
-
-		duration_m = ((current_time - init_time) - (3600 * duration_h)) / 60;
-
-		duration_s = ((current_time - init_time) - (3600 * duration_h) - (duration_m * 60));
-
-		// get ip
-		get_local_ip(test_eth, ip);
-		sprintf(ip_message, "%s%s", ip_head, ip);
-		oled_putstrto(disp, 0, 0, ip_message);
-
-		int lidar_1_status = is_network_up("192.168.1.201", 22);
-		int lidar_2_status = is_network_up("192.168.1.202", 22);
+		// char init
 
 		lidar_1_online_message[0] = '\0';
 		lidar_2_online_message[0] = '\0';
@@ -118,6 +103,23 @@ int oled_demo(struct display_info *disp)
 		memset(lidar_2_online_message, '\0', sizeof(lidar_2_online_message));
 		memset(time_count_message, '\0', sizeof(time_count_message));
 		memset(time_duration_message, '\0', sizeof(time_duration_message));
+		// get time
+		current_time = time(NULL);
+
+		duration_h = ((current_time - init_time) / 3600);
+
+		duration_m = ((current_time - init_time) - (3600 * duration_h)) / 60;
+
+		duration_s = ((current_time - init_time) - (3600 * duration_h) - (duration_m * 60));
+
+		sprintf(time_duration_message, "RunTime:%dh%dmin%dsec%s", duration_h, duration_m, duration_s, "          ");
+
+		// get ip
+		get_local_ip(test_eth, ip);
+		sprintf(ip_message, "%s%s", ip_head, ip);
+
+		int lidar_1_status = is_network_up("192.168.1.201", 22);
+		int lidar_2_status = is_network_up("192.168.1.202", 22);
 
 		if (count % 7 == 0)
 		{
@@ -195,13 +197,12 @@ int oled_demo(struct display_info *disp)
 			break;
 		}
 
+		oled_putstrto(disp, 0, 0, ip_message);
 		oled_putstrto(disp, 0, 9 + 1, lidar_1_online_message);
 		oled_putstrto(disp, 0, 18 + 2, lidar_2_online_message);
-		oled_putstrto(disp, 0, 27 + 3, time_count_message);
+		oled_putstrto(disp, 0, 27 + 3, time_duration_message);
+		oled_putstrto(disp, 0, 36 + 5, time_count_message);
 
-		sprintf(time_duration_message, "Duration:%dh%dmin%dsec%s", duration_h, duration_m, duration_s, "          ");
-
-		oled_putstrto(disp, 0, 36 + 5, time_duration_message);
 		oled_send_buffer(disp);
 		usleep(400000);
 		count += 1;
