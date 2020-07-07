@@ -35,7 +35,7 @@ int is_network_up(char *chkhost, unsigned short chkport);
 int oled_demo(struct display_info *disp)
 {
 
-	char ip[IP_SIZE];
+	char ip[IP_SIZE]="";
 
 	char lidar_1_online_status[100];
 	char lidar_2_online_status[100];
