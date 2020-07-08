@@ -222,21 +222,6 @@ int oled_demo(struct display_info *disp)
 
 		// printf("%s %ld\n", "times:", count);
 	}
-
-	uint8_t buf[100];
-
-	disp->font = font3;
-	for (int i = 0; i < 100; i++)
-	{
-		sprintf(buf, "Spnd spd  %d rpm", i);
-		oled_putstrto(disp, 0, 0, buf);
-		oled_putstrto(disp, 135 - i, 36 + 4, "===");
-		oled_putstrto(disp, 100, 0 + i / 2, ".");
-		oled_send_buffer(disp);
-	}
-	oled_putpixel(disp, 60, 45);
-	oled_putstr(disp, 1, "hello");
-
 	return 0;
 }
 
