@@ -60,6 +60,7 @@ int oled_demo(struct display_info *disp)
 	} while (!get_ip_complete);
 
 	sprintf(ip_message, "%s%s", ip_head, ip);
+	printf("get_local_ip -- %s", ip_message);
 
 	// -=-----
 
