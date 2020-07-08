@@ -50,24 +50,24 @@ int oled_demo(struct display_info *disp)
 	printf("555555 --s");
 
 	char ip_message[100];
-	// do
-	// { // get ip
-	// 	if (get_local_ip(test_eth, ip) == 0)
-	// 	{
-	// 		get_ip_complete = true;
-	// 	}
-	// 	printf("get_local_ip -- %d", get_local_ip(test_eth, ip));
+	do
+	{ // get ip
+		if (get_local_ip(test_eth, ip) == 0)
+		{
+			get_ip_complete = true;
+		}
+		printf("get_local_ip -- %d", get_local_ip(test_eth, ip));
 
-	// 	usleep(20000);
-	// } while (!get_ip_complete);
+		usleep(20000);
+	} while (!get_ip_complete);
 
-	// sprintf(ip_message, "%s%s", ip_head, ip);
-	// printf("get_local_ip -- %s", ip_message);
+	sprintf(ip_message, "%s%s", ip_head, ip);
+	printf("get_local_ip -- %s", ip_message);
 
-	// // -=-----
+	// -=-----
 
-	// // printf("%s\n", lidar_1_online_message);
-	// // printf("%s\n",lidar_2_online_message);
+	// printf("%s\n", lidar_1_online_message);
+	// printf("%s\n",lidar_2_online_message);
 
 	// disp->font = font2;
 
