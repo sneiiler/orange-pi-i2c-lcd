@@ -76,6 +76,12 @@ int oled_demo(struct display_info *disp)
 	long int count = 0;
 	bool disp_change = false;
 
+	char *time_count_header = "Running:";
+
+	char *time_count_message = (char *)malloc(200);
+
+	char *time_duration_message = (char *)malloc(200);
+
 	char *message_lidar_1_online_status = "Lidar 1:Online            ";
 	char *message_lidar_1_online_ip = "Lidar 2:192.168.1.201     ";
 	char *message_lidar_1_offline = "Lidar 1:Offline            ";
