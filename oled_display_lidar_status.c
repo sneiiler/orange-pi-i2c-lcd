@@ -76,31 +76,21 @@ int oled_demo(struct display_info *disp)
 	long int count = 0;
 	bool disp_change = false;
 
-	char *lidar_1_online_head = "Lidar 1:";
+	char *message_lidar_1_online_status = "Lidar 1:Online            ";
+	char *message_lidar_1_online_ip = "Lidar 2:192.168.1.201     ";
+	char *message_lidar_1_offline = "Lidar 1:Offline            ";
 
-	char *lidar_1_online_message = (char *)malloc(200);
-
-	char *lidar_2_online_head = "Lidar 2:";
-
-	char *lidar_2_online_message = (char *)malloc(200);
-
-	char *time_count_header = "Running:";
-
-	char *time_count_message = (char *)malloc(200);
-
-	char *time_duration_message = (char *)malloc(200);
+	char *message_lidar_2_online_status = "Lidar 2:Online            ";
+	char *message_lidar_2_online_ip = "Lidar 2:192.168.1.202     ";
+	char *message_lidar_2_offline = "Lidar 2:Offline            ";
 
 	while (1)
 	{
 		// char init
 
-		lidar_1_online_message[0] = '\0';
-		lidar_2_online_message[0] = '\0';
 		time_count_message[0] = '\0';
 		time_duration_message[0] = '\0';
 
-		memset(lidar_1_online_message, '\0', sizeof(lidar_1_online_message));
-		memset(lidar_2_online_message, '\0', sizeof(lidar_2_online_message));
 		memset(time_count_message, '\0', sizeof(time_count_message));
 		memset(time_duration_message, '\0', sizeof(time_duration_message));
 		// get time
@@ -132,17 +122,17 @@ int oled_demo(struct display_info *disp)
 			{
 				if (count % 2 == 0 && disp_change)
 				{
-					sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "192.168.1.201");
+					oled_putstrto(disp, 0, 9 + 1, message_lidar_1_online_ip);
 				}
 				else
 				{
-					sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Online            ");
+					oled_putstrto(disp, 0, 9 + 1, message_lidar_1_online_status);
 				}
 			}
 		}
 		else
 		{
-			sprintf(lidar_1_online_message, "%s%s", lidar_1_online_head, "Offline           ");
+			oled_putstrto(disp, 0, 9 + 1, message_lidar_1_offline);
 		}
 		// ----
 
@@ -152,43 +142,61 @@ int oled_demo(struct display_info *disp)
 			{
 				if (count % 2 == 0 && disp_change)
 				{
-					sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "192.168.1.202");
+					oled_putstrto(disp, 0, 18 + 2, message_lidar_2_online_ip);
 				}
 				else
 				{
-					sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Online            ");
+					oled_putstrto(disp, 0, 18 + 2, message_lidar_2_online_status);
 				}
 			}
 		}
 		else
 		{
-			sprintf(lidar_2_online_message, "%s%s", lidar_2_online_head, "Offline           ");
+			oled_putstrto(disp, 0, 18 + 2, message_lidar_2_offline);
 		}
 
-		switch (count % 8)
+		switch (count % 14)
 		{
 		case 0:
-			sprintf(time_count_message, "%s%s", time_count_header, ".       ");
+			sprintf(time_count_message, "%s%s", time_count_header, ".              ");
 			break;
 		case 1:
-			sprintf(time_count_message, "%s%s", time_count_header, "..      ");
+			sprintf(time_count_message, "%s%s", time_count_header, "..             ");
 			break;
 		case 2:
-			sprintf(time_count_message, "%s%s", time_count_header, "...     ");
+			sprintf(time_count_message, "%s%s", time_count_header, "...            ");
 			break;
 		case 3:
-			sprintf(time_count_message, "%s%s", time_count_header, "....    ");
+			sprintf(time_count_message, "%s%s", time_count_header, "....           ");
 			break;
 		case 4:
-			sprintf(time_count_message, "%s%s", time_count_header, ".....   ");
+			sprintf(time_count_message, "%s%s", time_count_header, ".....          ");
 			break;
 		case 5:
-			sprintf(time_count_message, "%s%s", time_count_header, "......  ");
+			sprintf(time_count_message, "%s%s", time_count_header, "......         ");
 			break;
 		case 6:
-			sprintf(time_count_message, "%s%s", time_count_header, "....... ");
+			sprintf(time_count_message, "%s%s", time_count_header, ".......        ");
 			break;
 		case 7:
+			sprintf(time_count_message, "%s%s", time_count_header, "........       ");
+			break;
+		case 8:
+			sprintf(time_count_message, "%s%s", time_count_header, ".........      ");
+			break;
+		case 9:
+			sprintf(time_count_message, "%s%s", time_count_header, "..........     ");
+			break;
+		case 10:
+			sprintf(time_count_message, "%s%s", time_count_header, "...........    ");
+			break;
+		case 11:
+			sprintf(time_count_message, "%s%s", time_count_header, "............   ");
+			break;
+		case 12:
+			sprintf(time_count_message, "%s%s", time_count_header, ".............  ");
+			break;
+		case 13:
 			sprintf(time_count_message, "%s%ld", time_count_header, count);
 			break;
 
@@ -198,8 +206,6 @@ int oled_demo(struct display_info *disp)
 		}
 
 		oled_putstrto(disp, 0, 0, ip_message);
-		oled_putstrto(disp, 0, 9 + 1, lidar_1_online_message);
-		oled_putstrto(disp, 0, 18 + 2, lidar_2_online_message);
 		oled_putstrto(disp, 0, 27 + 3, time_duration_message);
 		oled_putstrto(disp, 0, 36 + 5, time_count_message);
 
