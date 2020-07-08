@@ -39,18 +39,22 @@ int oled_demo(struct display_info *disp)
 	time_t current_time;
 	init_time = time(NULL);
 
-	char ip[IP_SIZE] = "";
-
 	char lidar_1_online_status[100];
 	char lidar_2_online_status[100];
 
+	bool get_ip_complete = false;
+	char ip[IP_SIZE] = "";
 	const char *test_eth = "eth0";
-
-	get_local_ip(test_eth, ip);
-
 	char *ip_head = "IP Addr:";
 
 	char *ip_message = (char *)malloc(strlen(ip_head) + strlen(ip));
+	do
+	{ // get ip
+		if (get_local_ip(test_eth, ip) == 0)
+		{
+			get_ip_complete = true;
+		}
+	} while (!get_ip_complete);
 
 	sprintf(ip_message, "%s%s", ip_head, ip);
 
@@ -59,16 +63,9 @@ int oled_demo(struct display_info *disp)
 	// printf("%s\n", lidar_1_online_message);
 	// printf("%s\n",lidar_2_online_message);
 
-	//putstrto(disp, 0, 0, "Spnd spd  2468 rpm");
-	oled_putstrto(disp, 0, 0, ip_message);
 	disp->font = font2;
-	// oled_putstrto(disp, 0, 18 + 2, "Spnd tmp    53 C");
-	// disp->font = font2;
-	// oled_putstrto(disp, 0, 27 + 3, "DrvX tmp    64 C");
-	// oled_putstrto(disp, 0, 36 + 4, "");
-	// oled_putstrto(disp, 0, 45 + 5, "");
-	// disp->font = font1;
-	// oled_putstrto(disp, 0, 54, "Total cur  2.36 A");
+
+	oled_putstrto(disp, 0, 0, ip_message);
 
 	oled_putstrto(disp, 0, 54 - 4 + 4, "DESIGNED BY Enjoyer.");
 	oled_send_buffer(disp);
@@ -83,7 +80,7 @@ int oled_demo(struct display_info *disp)
 	char *time_duration_message = (char *)malloc(200);
 
 	char *message_lidar_1_online_status = "Lidar 1:Online            ";
-	char *message_lidar_1_online_ip = "Lidar 2:192.168.1.201     ";
+	char *message_lidar_1_online_ip = "Lidar 1:192.168.1.201     ";
 	char *message_lidar_1_offline = "Lidar 1:Offline            ";
 
 	char *message_lidar_2_online_status = "Lidar 2:Online            ";
@@ -109,10 +106,6 @@ int oled_demo(struct display_info *disp)
 		duration_s = ((current_time - init_time) - (3600 * duration_h) - (duration_m * 60));
 
 		sprintf(time_duration_message, "RunTime:%dh%dmin%dsec%s", duration_h, duration_m, duration_s, "          ");
-
-		// get ip
-		get_local_ip(test_eth, ip);
-		sprintf(ip_message, "%s%s", ip_head, ip);
 
 		int lidar_1_status = is_network_up("192.168.1.201", 22);
 		int lidar_2_status = is_network_up("192.168.1.202", 22);
