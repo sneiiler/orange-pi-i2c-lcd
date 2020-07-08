@@ -54,6 +54,9 @@ int oled_demo(struct display_info *disp)
 		{
 			get_ip_complete = true;
 		}
+		printf("get_local_ip -- %d", get_local_ip(test_eth, ip));
+
+		usleep(20000);
 	} while (!get_ip_complete);
 
 	sprintf(ip_message, "%s%s", ip_head, ip);
