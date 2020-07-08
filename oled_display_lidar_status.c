@@ -381,18 +381,23 @@ int main(int argc, char **argv)
 	//	    oled_init(&disp)           < 0 ||
 	//	    oled_demo(&disp)           < 0)
 	//	{
+	printf("11222211y --s");
 
 	int e;
 
 	e = oled_open(&disp, filename);
+	printf("11333311y --s");
 
 	if (e < 0)
 	{
 		show_error(1, e);
 	}
 	else
+		printf("11444411y --s");
 	{
 		e = oled_init(&disp);
+		printf("11555511y --s");
+
 		if (e < 0)
 		{
 			show_error(2, e);
