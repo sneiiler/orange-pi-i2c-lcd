@@ -38,7 +38,6 @@ int oled_demo(struct display_info *disp)
 	time_t init_time;
 	time_t current_time;
 	init_time = time(NULL);
-	printf("444444 --s");
 
 	char lidar_1_online_status[100];
 	char lidar_2_online_status[100];
@@ -47,7 +46,6 @@ int oled_demo(struct display_info *disp)
 	char ip[IP_SIZE] = "";
 	const char *test_eth = "eth0";
 	char *ip_head = "IP Addr:";
-	printf("555555 --s");
 
 	char ip_message[100];
 	do
@@ -62,7 +60,6 @@ int oled_demo(struct display_info *disp)
 	} while (!get_ip_complete);
 
 	sprintf(ip_message, "%s%s", ip_head, ip);
-	printf("get_local_ip -- %s", ip_message);
 
 	// -=-----
 
@@ -75,7 +72,6 @@ int oled_demo(struct display_info *disp)
 
 	oled_putstrto(disp, 0, 54 - 4 + 4, "DESIGNED BY Enjoyer.");
 	oled_send_buffer(disp);
-	printf("IGNED BY Enjoy -- %s", ip_message);
 
 	long int count = 0;
 	bool disp_change = false;
@@ -233,11 +229,6 @@ void show_error(int err, int add)
 	//printf("\nERROR\n");
 }
 
-void show_usage(char *progname)
-{
-	printf("\nUsage:\n%s <I2C bus device node >\n", progname);
-}
-
 int get_local_ip(const char *eth_inf, char *ip)
 {
 	int sd;
@@ -319,69 +310,29 @@ int is_network_up(char *chkhost, unsigned short chkport)
 	return ret;
 }
 
-int write_lcd(int x, int y, char *message)
-{
-	char filename[32];
-	struct display_info disp;
-
-	memset(&disp, 0, sizeof(disp));
-
-	sprintf(filename, "%s", "/dev/i2c-0");
-	disp.address = OLED_I2C_ADDR;
-	disp.font = font2;
-
-	oled_open(&disp, filename);
-
-	oled_init(&disp);
-
-	oled_putstrto(&disp, 0, 0 + 0, message);
-
-	oled_putstrto(&disp, 0, 54 - 6 + 4, "DESIGNED BY Enjoyer.");
-	oled_putstrto(&disp, x, y, message);
-
-	oled_send_buffer(&disp);
-}
-
 int main(int argc, char **argv)
 {
+	char *i2c_file_name = "/dev/i2c-0";
 
-	// ----------
-	char filename[32];
 	struct display_info disp;
 
-	// if (argc < 2)
-	// {
-	// 	show_usage(argv[0]);
-	// 	return -1;
-	// }
-
-	printf("1111111y --s");
 	memset(&disp, 0, sizeof(disp));
 
-	sprintf(filename, "%s", "/dev/i2c-0");
 	disp.address = OLED_I2C_ADDR;
-	disp.font = font2;
 
-	//	if (oled_open(&disp, filename) < 0 ||
-	//	    oled_init(&disp)           < 0 ||
-	//	    oled_demo(&disp)           < 0)
-	//	{
-	printf("11222211y --s");
+	disp.font = font2;
 
 	int e;
 
-	e = oled_open(&disp, filename);
-	printf("11333311y --s");
+	e = oled_open(&disp, i2c_file_name);
 
 	if (e < 0)
 	{
 		show_error(1, e);
 	}
 	else
-		printf("11444411y --s");
 	{
 		e = oled_init(&disp);
-		printf("11555511y --s");
 
 		if (e < 0)
 		{
@@ -389,13 +340,8 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-
-			printf("-----------------\n");
-			printf("222222 --s");
-
 			if (oled_demo(&disp) < 0)
 			{
-				printf("333333 --s");
 				show_error(3, 777);
 			}
 		}
