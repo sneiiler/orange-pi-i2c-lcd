@@ -38,6 +38,7 @@ int oled_demo(struct display_info *disp)
 	time_t init_time;
 	time_t current_time;
 	init_time = time(NULL);
+	printf("444444 --s");
 
 	char lidar_1_online_status[100];
 	char lidar_2_online_status[100];
@@ -46,6 +47,7 @@ int oled_demo(struct display_info *disp)
 	char ip[IP_SIZE] = "";
 	const char *test_eth = "eth0";
 	char *ip_head = "IP Addr:";
+	printf("555555 --s");
 
 	char *ip_message = (char *)malloc(strlen(ip_head) + sizeof(char) * strlen(ip));
 	do
@@ -368,6 +370,7 @@ int main(int argc, char **argv)
 	// 	return -1;
 	// }
 
+	printf("1111111y --s");
 	memset(&disp, 0, sizeof(disp));
 
 	sprintf(filename, "%s", "/dev/i2c-0");
@@ -398,9 +401,11 @@ int main(int argc, char **argv)
 		{
 
 			printf("-----------------\n");
+			printf("222222 --s");
 
 			if (oled_demo(&disp) < 0)
 			{
+				printf("333333 --s");
 				show_error(3, 777);
 			}
 		}
