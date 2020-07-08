@@ -69,13 +69,13 @@ int oled_demo(struct display_info *disp)
 	// printf("%s\n", lidar_1_online_message);
 	// printf("%s\n",lidar_2_online_message);
 
-	// disp->font = font2;
+	disp->font = font2;
 
-	// oled_putstrto(disp, 0, 0, ip_message);
+	oled_putstrto(disp, 0, 0, ip_message);
 
-	// oled_putstrto(disp, 0, 54 - 4 + 4, "DESIGNED BY Enjoyer.");
-	// oled_send_buffer(disp);
-	// printf("IGNED BY Enjoy -- %s", ip_message);
+	oled_putstrto(disp, 0, 54 - 4 + 4, "DESIGNED BY Enjoyer.");
+	oled_send_buffer(disp);
+	printf("IGNED BY Enjoy -- %s", ip_message);
 
 	// long int count = 0;
 	// bool disp_change = false;
