@@ -40,16 +40,16 @@ int oled_demo(struct display_info *disp)
 	init_time = time(NULL);
 	printf("444444 --s");
 
-	// char lidar_1_online_status[100];
-	// char lidar_2_online_status[100];
+	char lidar_1_online_status[100];
+	char lidar_2_online_status[100];
 
-	// bool get_ip_complete = false;
-	// char ip[IP_SIZE] = "";
-	// const char *test_eth = "eth0";
-	// char *ip_head = "IP Addr:";
-	// printf("555555 --s");
+	bool get_ip_complete = false;
+	char ip[IP_SIZE] = "";
+	const char *test_eth = "eth0";
+	char *ip_head = "IP Addr:";
+	printf("555555 --s");
 
-	// char *ip_message = (char *)malloc(strlen(ip_head) + sizeof(char) * strlen(ip));
+	char ip_message[100];
 	// do
 	// { // get ip
 	// 	if (get_local_ip(test_eth, ip) == 0)
