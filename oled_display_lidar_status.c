@@ -77,165 +77,165 @@ int oled_demo(struct display_info *disp)
 	oled_send_buffer(disp);
 	printf("IGNED BY Enjoy -- %s", ip_message);
 
-	// long int count = 0;
-	// bool disp_change = false;
+	long int count = 0;
+	bool disp_change = false;
 
-	// char *time_count_header = "Running:";
+	char *time_count_header = "Running:";
 
-	// char *time_count_message = (char *)malloc(200);
+	char *time_count_message = (char *)malloc(200);
 
-	// char *time_duration_message = (char *)malloc(200);
+	char *time_duration_message = (char *)malloc(200);
 
-	// char *message_lidar_1_online_status = "Lidar 1:Online            ";
-	// char *message_lidar_1_online_ip = "Lidar 1:192.168.1.201     ";
-	// char *message_lidar_1_offline = "Lidar 1:Offline            ";
+	char *message_lidar_1_online_status = "Lidar 1:Online            ";
+	char *message_lidar_1_online_ip = "Lidar 1:192.168.1.201     ";
+	char *message_lidar_1_offline = "Lidar 1:Offline            ";
 
-	// char *message_lidar_2_online_status = "Lidar 2:Online            ";
-	// char *message_lidar_2_online_ip = "Lidar 2:192.168.1.202     ";
-	// char *message_lidar_2_offline = "Lidar 2:Offline            ";
+	char *message_lidar_2_online_status = "Lidar 2:Online            ";
+	char *message_lidar_2_online_ip = "Lidar 2:192.168.1.202     ";
+	char *message_lidar_2_offline = "Lidar 2:Offline            ";
 
-	// while (1)
-	// {
-	// 	// char init
+	while (1)
+	{
+		// char init
 
-	// 	time_count_message[0] = '\0';
-	// 	time_duration_message[0] = '\0';
+		time_count_message[0] = '\0';
+		time_duration_message[0] = '\0';
 
-	// 	memset(time_count_message, '\0', sizeof(time_count_message));
-	// 	memset(time_duration_message, '\0', sizeof(time_duration_message));
-	// 	// get time
-	// 	current_time = time(NULL);
+		memset(time_count_message, '\0', sizeof(time_count_message));
+		memset(time_duration_message, '\0', sizeof(time_duration_message));
+		// get time
+		current_time = time(NULL);
 
-	// 	duration_h = ((current_time - init_time) / 3600);
+		duration_h = ((current_time - init_time) / 3600);
 
-	// 	duration_m = ((current_time - init_time) - (3600 * duration_h)) / 60;
+		duration_m = ((current_time - init_time) - (3600 * duration_h)) / 60;
 
-	// 	duration_s = ((current_time - init_time) - (3600 * duration_h) - (duration_m * 60));
+		duration_s = ((current_time - init_time) - (3600 * duration_h) - (duration_m * 60));
 
-	// 	sprintf(time_duration_message, "RunTime:%dh%dmin%dsec%s", duration_h, duration_m, duration_s, "          ");
+		sprintf(time_duration_message, "RunTime:%dh%dmin%dsec%s", duration_h, duration_m, duration_s, "          ");
 
-	// 	int lidar_1_status = is_network_up("192.168.1.201", 22);
-	// 	int lidar_2_status = is_network_up("192.168.1.202", 22);
+		int lidar_1_status = is_network_up("192.168.1.201", 22);
+		int lidar_2_status = is_network_up("192.168.1.202", 22);
 
-	// 	if (count % 7 == 0)
-	// 	{
-	// 		disp_change = true;
-	// 	}
+		if (count % 7 == 0)
+		{
+			disp_change = true;
+		}
 
-	// 	if (lidar_1_status)
-	// 	{
-	// 		if (disp_change)
-	// 		{
-	// 			if (count % 2 == 0 && disp_change)
-	// 			{
-	// 				oled_putstrto(disp, 0, 9 + 1, message_lidar_1_online_ip);
-	// 			}
-	// 			else
-	// 			{
-	// 				oled_putstrto(disp, 0, 9 + 1, message_lidar_1_online_status);
-	// 			}
-	// 		}
-	// 	}
-	// 	else
-	// 	{
-	// 		oled_putstrto(disp, 0, 9 + 1, message_lidar_1_offline);
-	// 	}
-	// 	// ----
+		if (lidar_1_status)
+		{
+			if (disp_change)
+			{
+				if (count % 2 == 0 && disp_change)
+				{
+					oled_putstrto(disp, 0, 9 + 1, message_lidar_1_online_ip);
+				}
+				else
+				{
+					oled_putstrto(disp, 0, 9 + 1, message_lidar_1_online_status);
+				}
+			}
+		}
+		else
+		{
+			oled_putstrto(disp, 0, 9 + 1, message_lidar_1_offline);
+		}
+		// ----
 
-	// 	if (lidar_2_status)
-	// 	{
-	// 		if (disp_change)
-	// 		{
-	// 			if (count % 2 == 0 && disp_change)
-	// 			{
-	// 				oled_putstrto(disp, 0, 18 + 2, message_lidar_2_online_ip);
-	// 			}
-	// 			else
-	// 			{
-	// 				oled_putstrto(disp, 0, 18 + 2, message_lidar_2_online_status);
-	// 			}
-	// 		}
-	// 	}
-	// 	else
-	// 	{
-	// 		oled_putstrto(disp, 0, 18 + 2, message_lidar_2_offline);
-	// 	}
+		if (lidar_2_status)
+		{
+			if (disp_change)
+			{
+				if (count % 2 == 0 && disp_change)
+				{
+					oled_putstrto(disp, 0, 18 + 2, message_lidar_2_online_ip);
+				}
+				else
+				{
+					oled_putstrto(disp, 0, 18 + 2, message_lidar_2_online_status);
+				}
+			}
+		}
+		else
+		{
+			oled_putstrto(disp, 0, 18 + 2, message_lidar_2_offline);
+		}
 
-	// 	switch (count % 14)
-	// 	{
-	// 	case 0:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, ".              ");
-	// 		break;
-	// 	case 1:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "..             ");
-	// 		break;
-	// 	case 2:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "...            ");
-	// 		break;
-	// 	case 3:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "....           ");
-	// 		break;
-	// 	case 4:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, ".....          ");
-	// 		break;
-	// 	case 5:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "......         ");
-	// 		break;
-	// 	case 6:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, ".......        ");
-	// 		break;
-	// 	case 7:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "........       ");
-	// 		break;
-	// 	case 8:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, ".........      ");
-	// 		break;
-	// 	case 9:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "..........     ");
-	// 		break;
-	// 	case 10:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "...........    ");
-	// 		break;
-	// 	case 11:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "............   ");
-	// 		break;
-	// 	case 12:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, ".............  ");
-	// 		break;
-	// 	case 13:
-	// 		sprintf(time_count_message, "%s%ld", time_count_header, count);
-	// 		break;
+		switch (count % 14)
+		{
+		case 0:
+			sprintf(time_count_message, "%s%s", time_count_header, ".              ");
+			break;
+		case 1:
+			sprintf(time_count_message, "%s%s", time_count_header, "..             ");
+			break;
+		case 2:
+			sprintf(time_count_message, "%s%s", time_count_header, "...            ");
+			break;
+		case 3:
+			sprintf(time_count_message, "%s%s", time_count_header, "....           ");
+			break;
+		case 4:
+			sprintf(time_count_message, "%s%s", time_count_header, ".....          ");
+			break;
+		case 5:
+			sprintf(time_count_message, "%s%s", time_count_header, "......         ");
+			break;
+		case 6:
+			sprintf(time_count_message, "%s%s", time_count_header, ".......        ");
+			break;
+		case 7:
+			sprintf(time_count_message, "%s%s", time_count_header, "........       ");
+			break;
+		case 8:
+			sprintf(time_count_message, "%s%s", time_count_header, ".........      ");
+			break;
+		case 9:
+			sprintf(time_count_message, "%s%s", time_count_header, "..........     ");
+			break;
+		case 10:
+			sprintf(time_count_message, "%s%s", time_count_header, "...........    ");
+			break;
+		case 11:
+			sprintf(time_count_message, "%s%s", time_count_header, "............   ");
+			break;
+		case 12:
+			sprintf(time_count_message, "%s%s", time_count_header, ".............  ");
+			break;
+		case 13:
+			sprintf(time_count_message, "%s%ld", time_count_header, count);
+			break;
 
-	// 	default:
-	// 		sprintf(time_count_message, "%s%s", time_count_header, "**       ");
-	// 		break;
-	// 	}
+		default:
+			sprintf(time_count_message, "%s%s", time_count_header, "**       ");
+			break;
+		}
 
-	// 	oled_putstrto(disp, 0, 0, ip_message);
-	// 	oled_putstrto(disp, 0, 27 + 3, time_duration_message);
-	// 	oled_putstrto(disp, 0, 36 + 5, time_count_message);
+		oled_putstrto(disp, 0, 0, ip_message);
+		oled_putstrto(disp, 0, 27 + 3, time_duration_message);
+		oled_putstrto(disp, 0, 36 + 5, time_count_message);
 
-	// 	oled_send_buffer(disp);
-	// 	usleep(400000);
-	// 	count += 1;
-	// 	disp_change = false;
+		oled_send_buffer(disp);
+		usleep(400000);
+		count += 1;
+		disp_change = false;
 
-	// 	// printf("%s %ld\n", "times:", count);
-	// }
+		// printf("%s %ld\n", "times:", count);
+	}
 
-	// uint8_t buf[100];
+	uint8_t buf[100];
 
-	// disp->font = font3;
-	// for (int i = 0; i < 100; i++)
-	// {
-	// 	sprintf(buf, "Spnd spd  %d rpm", i);
-	// 	oled_putstrto(disp, 0, 0, buf);
-	// 	oled_putstrto(disp, 135 - i, 36 + 4, "===");
-	// 	oled_putstrto(disp, 100, 0 + i / 2, ".");
-	// 	oled_send_buffer(disp);
-	// }
-	//oled_putpixel(disp, 60, 45);
-	//oled_putstr(disp, 1, "hello");
+	disp->font = font3;
+	for (int i = 0; i < 100; i++)
+	{
+		sprintf(buf, "Spnd spd  %d rpm", i);
+		oled_putstrto(disp, 0, 0, buf);
+		oled_putstrto(disp, 135 - i, 36 + 4, "===");
+		oled_putstrto(disp, 100, 0 + i / 2, ".");
+		oled_send_buffer(disp);
+	}
+	oled_putpixel(disp, 60, 45);
+	oled_putstr(disp, 1, "hello");
 
 	return 0;
 }
