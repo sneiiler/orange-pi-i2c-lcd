@@ -47,7 +47,7 @@ int oled_demo(struct display_info *disp)
 	const char *test_eth = "eth0";
 	char *ip_head = "IP Addr:";
 
-	char *ip_message = (char *)malloc(strlen(ip_head) + strlen(ip));
+	char *ip_message = (char *)malloc(strlen(ip_head) + sizeof(char) * strlen(ip));
 	do
 	{ // get ip
 		if (get_local_ip(test_eth, ip) == 0)
@@ -73,6 +73,7 @@ int oled_demo(struct display_info *disp)
 
 	oled_putstrto(disp, 0, 54 - 4 + 4, "DESIGNED BY Enjoyer.");
 	oled_send_buffer(disp);
+	printf("IGNED BY Enjoy -- %s", ip_message);
 
 	long int count = 0;
 	bool disp_change = false;
