@@ -83,11 +83,11 @@ int oled_demo(struct display_info *disp)
 	char *time_duration_message = (char *)malloc(200);
 
 	char *message_lidar_1_online_status = "Lidar 1:Online            ";
-	char *message_lidar_1_online_ip = "Lidar 1:192.168.1.201     ";
+	char *message_lidar_1_online_ip = "Lidar 1:192.168.0.201     ";
 	char *message_lidar_1_offline = "Lidar 1:Offline            ";
 
 	char *message_lidar_2_online_status = "Lidar 2:Online            ";
-	char *message_lidar_2_online_ip = "Lidar 2:192.168.1.202     ";
+	char *message_lidar_2_online_ip = "Lidar 2:192.168.0.202     ";
 	char *message_lidar_2_offline = "Lidar 2:Offline            ";
 
 	while (1)
@@ -110,8 +110,8 @@ int oled_demo(struct display_info *disp)
 
 		sprintf(time_duration_message, "RunTime:%dh%dmin%dsec%s", duration_h, duration_m, duration_s, "          ");
 
-		int lidar_1_status = is_network_up("192.168.1.201", 22);
-		int lidar_2_status = is_network_up("192.168.1.202", 22);
+		int lidar_1_status = is_network_up("192.168.0.201", 22);
+		int lidar_2_status = is_network_up("192.168.0.202", 22);
 
 		if (count % 7 == 0)
 		{
